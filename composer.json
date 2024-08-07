@@ -1,0 +1,7 @@
+{
+    "require": {
+      "ext-iconv": "*",
+      "ext-mysqli": "*",
+      "org.majkel/dbase": "^1.1"
+    }
+}
