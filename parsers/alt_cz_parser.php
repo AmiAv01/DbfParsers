@@ -34,7 +34,7 @@
         $column_info = $db_alt_cz_handler->getRecord($i);
         $isEmpty = true;
         var_dump($column_info['HCPARTS']);
-        $datep = $column_info['DATEP']->format('d/m/Y');;
+        $datep = $column_info['DATEP']->format('d/m/Y');
         $tmp = $column_info['TMP'];
         $hcparts = $column_info['HCPARTS'];
         $brand = $column_info['BRAND'];
