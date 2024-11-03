@@ -33,11 +33,13 @@ $records_column_name = $db_roz_cz_handler->getFieldsNames();
 
 array_splice($records_column_name, 0 , 5);
 $records_alt_cz_table_count = $db_roz_cz_handler->getRecordsCount();
-for ($i = 0; $i < $records_alt_cz_table_count; $i++){
+for ($i = 14660; $i < $records_alt_cz_table_count; $i++){
     $column_info = $db_roz_cz_handler->getRecord($i);
     $isEmpty = true;
     var_dump($i);
-    $datep = $column_info['DATEP']->format('d/m/Y');;
+    var_dump($column_info['HCPARTS']);
+    var_dump($column_info['BRAND']);
+    $datep = $column_info['DATEP']->format('d/m/Y');
     $tmp = $column_info['TMP'];
     $hcparts = $column_info['HCPARTS'];
     $brand = $column_info['BRAND'];
@@ -71,7 +73,7 @@ for ($i = 0; $i < $records_alt_cz_table_count; $i++){
                                                                        '${tmp}',
                                                                        '${hcparts}', 
                                                                        '${brand}',
-                                                                       '${typec}',
+                                                                       '',
                                                                        '',
                                                                        '', 
                                                                        '')";
@@ -80,4 +82,5 @@ for ($i = 0; $i < $records_alt_cz_table_count; $i++){
 }
 
 $link->close();
+
 
