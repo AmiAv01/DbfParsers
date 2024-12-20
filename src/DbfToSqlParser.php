@@ -53,11 +53,19 @@ final class DbfToSqlParser
         }
     }
 
-    public function executeQuery(string $sql){
-        $this->link->query($sql);
+    public function executeQuery(string $sql): bool{
+        return $this->link->query($sql);
     }
 
-    public function closeLink()
+    /**
+     * @throws Exception
+     */
+    public function getFieldsNames(): array
+    {
+        return $this->tableHandler->getFieldsNames();
+    }
+
+    public function closeLink(): void
     {
         $this->link->close();
     }
