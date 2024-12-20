@@ -1,7 +1,8 @@
 <?php
 
-require_once '../vendor/autoload.php';
-use org\majkel\dbase\Table;
+require __DIR__ . '/vendor/autoload.php';
+
+use App\DbfToSqlParser;
 
 $records_meaning = ["RAUT" => "Соленоид",	"RAUT_CG" => "Соленоид", "RAUT1" => "Соленоид", "RAUT1_CG" => "Соленоид",
     "RBEN" => "Привод", "RBEN_GH" => "Привод", "RBEN_CG" => "Привод", "RWIR" => "Якорь", "RWIR_OM_OR" => "Якорь",
@@ -15,26 +16,16 @@ $records_meaning = ["RAUT" => "Соленоид",	"RAUT_CG" => "Соленоид
     "RLOZ_CG" => "Подшипник", "RREP1" => "Прочее", "RREP1_CG" => "Прочее", "RREP2" => "Прочее", "RREP2_CG" => "Прочее", "RREP3" => "Прочее"];
 
 /*Connect to db*/
-$link = new mysqli('127.0.0.1:3306', 'root', 'Egich.6384483','ami_schema');
-if ($link->connect_error){
-    die("Connection failed: " . $link->connect_error);
-}
+$parser = new DbfToSqlParser('./amiproject/ROZ_CZ_1.DBF');
 
-/* Open files */
-$db_roz_cz_path = '../amiproject/ROZ_CZ_1.DBF';
-
-$link->set_charset('utf8');
-
-/*Handlers*/
-$db_roz_cz_handler = Table::fromFile($db_roz_cz_path);
 
 // ass table
-$records_column_name = $db_roz_cz_handler->getFieldsNames();
+$records_column_name = $parser->getFieldsNames();
 
 array_splice($records_column_name, 0 , 5);
-$records_alt_cz_table_count = $db_roz_cz_handler->getRecordsCount();
+$records_alt_cz_table_count = $parser->getRecordsCount();
 for ($i = 14660; $i < $records_alt_cz_table_count; $i++){
-    $column_info = $db_roz_cz_handler->getRecord($i);
+    $column_info = $parser->getRecord($i);
     $isEmpty = true;
     var_dump($i);
     var_dump($column_info['HCPARTS']);
@@ -63,7 +54,7 @@ for ($i = 14660; $i < $records_alt_cz_table_count; $i++){
                                                                        '${dt_brand}',
                                                                        '${dt_code}', 
                                                                        '${img}')";
-                $link->query($sql);
+                $parser->executeQuery($sql);
             }
         }
     }
@@ -77,10 +68,8 @@ for ($i = 14660; $i < $records_alt_cz_table_count; $i++){
                                                                        '',
                                                                        '', 
                                                                        '')";
-        $link->query($sql);
+        $parser->executeQuery($sql);
     }
 }
 
-$link->close();
-
-
+$parser->closeLink();
