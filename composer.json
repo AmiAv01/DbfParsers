@@ -2,6 +2,14 @@
     "require": {
       "ext-iconv": "*",
       "ext-mysqli": "*",
-      "org.majkel/dbase": "^1.1"
+      "org.majkel/dbase": "^1.1",
+      "ext-pgsql": "*",
+        "vlucas/phpdotenv": "^5.6",
+      "ext-zip": "*"
+    },
+    "autoload": {
+      "psr-4": {
+          "App\\": "src/"
+      }
     }
 }
