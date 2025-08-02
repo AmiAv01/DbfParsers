@@ -50,8 +50,9 @@ class StkParser extends AbstractDbfParser
             );
         }
 
-        $sql = "INSERT IGNORE INTO stk(code, ostc, ost) VALUES " .
-            implode(', ', $values);
+        $sql = "INSERT INTO stk (code, ostc, ost) VALUES " .
+            implode(', ', $values) .
+            "ON DUPLICATE KEY UPDATE ostc = VALUES(ostc), ost = VALUES(ost)";
 
         $this->db->query($sql);
         $this->batch = [];
