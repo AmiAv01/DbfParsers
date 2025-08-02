@@ -24,5 +24,6 @@ class ParserContext
         $executionTime = $endTime - $startTime;
 
         echo "Время выполнения: " . round($executionTime, 4) . " секунд\n";
+        echo "Дата выполнения: " . date('Y-m-d H:i:s', (int)$endTime) . "\n";
     }
 }
