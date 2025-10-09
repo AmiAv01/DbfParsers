@@ -10,5 +10,6 @@ return [
     ],
     'dir_path' => 'amiproject',
     'archive_path' => './amiproject.zip',
-    'extract_path' => './amiproject_extracted'
+    'extract_path' => './amiproject_extracted',
+    'encryption_key' => 'Sel70ecTOR'
 ];

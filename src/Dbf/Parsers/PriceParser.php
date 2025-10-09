@@ -5,23 +5,27 @@ namespace App\Dbf\Parsers;
 use App\Dbf\DbfHandler;
 use App\Database\Connection;
 use org\majkel\dbase\Record;
+use App\Services\CryptService;
+
 
 class PriceParser extends AbstractDbfParser
 {
     private array $batch = [];
+    private CryptService $cryptService;
 
-    public function __construct(Connection $db, string $filePath)
+    public function __construct(Connection $db, string $filePath, array $config)
     {
         parent::__construct($db, $filePath);
+        $this->cryptService = new CryptService($config['encryption_key']);
     }
 
     protected function processRecord(Record $record): void
     {
         $this->batch[] = [
             'code' => $record['CODE'],
-            'zakup' => $record['ZAKUP'],
-            'opt' => $record['OPT'],
-            'prod' => $record['PROD']
+            'zakup' => $this->cryptService->crypt((string)$record['XFO']),
+            'opt' => $this->cryptService->crypt((string)$record['XFR']),
+            'prod' => $this->cryptService->crypt((string)$record['XF'])
         ];
 
         if (count($this->batch) >= self::BATCH_SIZE) {
