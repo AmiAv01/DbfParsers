@@ -52,8 +52,9 @@ class PriceParser extends AbstractDbfParser
             );
         }
 
-        $sql = "INSERT IGNORE INTO price(code, zakup, opt, prod) VALUES " .
-            implode(', ', $values);
+        $sql = "INSERT INTO price (code, zakup, opt, prod) VALUES " .
+            implode(', ', $values) .
+            "ON DUPLICATE KEY UPDATE zakup = VALUES(zakup), opt = VALUES(opt), prod = VALUES(prod)";
 
         $this->db->query($sql);
         $this->batch = [];
