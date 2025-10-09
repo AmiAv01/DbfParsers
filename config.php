@@ -6,7 +6,8 @@ return [
         'username' => 'root',
         'password' => 'Egich.6384483',
         'database' => 'ami_schema',
-        'charset' => 'utf8'
+        'charset' => 'utf8',
+        'port' => 3306
     ],
     'dir_path' => 'amiproject',
     'archive_path' => './amiproject.zip',
