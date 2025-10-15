@@ -25,7 +25,7 @@ try {
     $archiveService = new ArchiveService();
 
     $dbFile = (FileService::search($filename, $config['dir_path'])) ? "{$config['dir_path']}/{$filename}" : $archiveService->extract($archivePath, $filename);
-    $parser = ParserStrategyFactory::create($dbFile, $db);
+    $parser = ParserStrategyFactory::create($dbFile, $db, $config);
     $parserContext = new ParserContext($parser);
     $parserContext->execute($filename, $archivePath);
     FileService::cleanup();

@@ -23,9 +23,9 @@ class PriceParser extends AbstractDbfParser
     {
         $this->batch[] = [
             'code' => $record['CODE'],
-            'zakup' => $this->cryptService->crypt((string)$record['XFO']),
-            'opt' => $this->cryptService->crypt((string)$record['XFR']),
-            'prod' => $this->cryptService->crypt((string)$record['XF'])
+            'opt' => $this->cryptService->crypt((string)$record['XFO']),
+            'prod' => $this->cryptService->crypt((string)$record['XFR']),
+            'zakup' => $this->cryptService->crypt((string)$record['XF'])
         ];
 
         if (count($this->batch) >= self::BATCH_SIZE) {
